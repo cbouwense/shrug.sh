@@ -27,24 +27,50 @@
       background: rgb(9,9,121);
       border-radius: 10px;
       border: 0;
-      background: rgb(22,162,138);
-      background: linear-gradient(
-        90deg, 
-        rgba(22,162,138,1) 0%, 
-        rgba(9,121,81,1) 35%, 
-        rgba(0,212,255,1) 100%
-      );
+      background: rgb(80,9,121);
+background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%);
       box-shadow: 5px 5px 10px 5px slategray;
     }
 
     p { 
       margin: 0;
     }
+
+    #copied-alert {
+      font-size: 100px;
+      visibility: hidden;
+    }
   </style>
+  <script type="text/javascript">
+    function copyToClipboard() {
+      navigator.clipboard.writeText(document.getElementById("shrug").textContent);
+    }
+
+    function showCopiedAlert() {
+      document
+        .getElementById("copied-alert")
+        .style
+        .visibility = "visible";
+    }
+
+    function hideCopiedAlert() {
+      document
+        .getElementById("copied-alert")
+        .style
+        .visibility = "hidden";
+    }
+
+    function handleCopyClick() {
+      copyToClipboard();
+      showCopiedAlert();
+      setTimeout(hideCopiedAlert, 3000);
+    }
+  </script>
 </head>
 <body>
-	<p>¯\_(ツ)_/¯</p>
-  <button>Copy</button>
+  <p id="shrug">¯\_(ツ)_/¯</p>
+  <button onclick="handleCopyClick()">Copy</button>
+  <p id="copied-alert">Copied!</p>
 </body>
 </html>
 
