@@ -6,7 +6,7 @@ const port = 1738;
 const db = `${__dirname}/shrug.json`;
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://shrug.sh');
+  res.setHeader('Access-Control-Allow-Origin', 'https://shrug.sh');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
 
   next();
