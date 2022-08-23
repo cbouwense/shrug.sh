@@ -10,7 +10,7 @@ const promiseFs = fs.promises;
 const port = 1738;
 const db = `${__dirname}/shrug.json`;
 
-app.use(cors());
+app.use(cors({ origin: 'https://shrug.sh' }));
 
 app.get('/add-view', async (req, res) => {
   console.log('GET /add-view'); 
@@ -46,7 +46,7 @@ app.get('/add-copy', async (req, res) => {
     
     // Increment view count by one.
     const jsonCountFile = JSON.parse(rawCountFile);
-    const oldCopyCount = jsonViewCountFile.copies;
+    const oldCopyCount = jsonCountFile.copies;
     const newCopyCount = oldCopyCount + 1;
     const newCountFile = { 
       ...jsonCountFile,
