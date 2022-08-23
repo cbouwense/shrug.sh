@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/cbouwense/shrug.sh#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.1"
   }
 }

@@ -1,16 +1,16 @@
 const express = require('express');
+const http = require('http');
+const https = require('https');
 const app = express();
-const promiseFs = require('fs').promises;
+const fs = require('fs');
+const cors = require('cors');
+
+const promiseFs = fs.promises;
 
 const port = 1738;
 const db = `${__dirname}/shrug.json`;
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://shrug.sh');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
-
-  next();
-});
+app.use(cors({ origin: 'https://shrug.sh:443' }));
 
 app.get('/', async (req, res) => {
   console.log('GET /'); 
@@ -53,5 +53,12 @@ app.get('/views', async (req, res) => {
   }
 });
 
-app.listen(port, () => { console.log(`View counter listening on port ${port}`); });
+const sslOptions = {
+  key: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/fullchain.pem'),
+};
+
+http.createServer(app).listen(1737, () => { console.log('Started HTTP server on port 1737') });
+https.createServer(sslOptions, app).listen(1738, () => { console.log('Started HTTPS server on port 1738') } );
+// app.listen(port, () => { console.log(`View counter listening on port ${port}`); });
 
