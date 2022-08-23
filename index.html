@@ -81,15 +81,20 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
         .style
         .visibility = "hidden";
     }
+    
+    function increaseViewCount() {
+      fetch('https://views.shrug.sh:1738/add-view');
+    }
+
+    function increaseCopyCount() {
+      fetch('https://views.shrug.sh:1738/add-copy');
+    }
 
     function handleCopyClick() {
       copyToClipboard();
       showCopiedAlert();
+      increaseCopyCount(); 
       setTimeout(hideCopiedAlert, 3000);
-    }
-  
-    function increaseViewCount() {
-      fetch('https://views.shrug.sh:1738');
     }
 
     increaseViewCount();
