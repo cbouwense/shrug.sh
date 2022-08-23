@@ -1,0 +1,22 @@
+{
+  "name": "shrug.sh",
+  "version": "1.0.0",
+  "description": "A little server for tallying up views",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest index.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbouwense/shrug.sh.git"
+  },
+  "author": "Christian Bouwense",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbouwense/shrug.sh/issues"
+  },
+  "homepage": "https://github.com/cbouwense/shrug.sh#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
