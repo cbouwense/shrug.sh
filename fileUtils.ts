@@ -27,7 +27,7 @@ export const addCopy = (ctx) => {
   }
 };
 
-export const addView = (cyx) => {
+export const addView = (ctx) => {
   console.log('GET /add-view'); 
   try {
     // Read from file.
@@ -53,7 +53,7 @@ export const addView = (cyx) => {
   }
 };
 
-export const getCurrentCounts = async (_req, res) => {
+export const getCurrentCounts = (ctx) => {
   console.log('GET /');
 
   try {
