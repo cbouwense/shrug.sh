@@ -17,7 +17,7 @@ export const addCopy = async (ctx) => {
     };
 
     // Write to the file.
-    Deno.writeTextFileSync(db, JSON.stringify(newCountFile) + '\n');
+    await Deno.writeTextFile(db, JSON.stringify(newCountFile) + '\n');
 
     // Respond with OK.
     ctx.response.status = Status.OK;
@@ -43,7 +43,7 @@ export const addView = async (ctx) => {
     };
 
     // Write to the file.
-    Deno.writeTextFileSync(db, JSON.stringify(newCountFile) + '\n');
+    await Deno.writeTextFile(db, JSON.stringify(newCountFile) + '\n');
 
     // Respond with OK.
     ctx.response.status = Status.OK;
