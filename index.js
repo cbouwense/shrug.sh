@@ -1,18 +1,40 @@
-const express = require('express');
-const http = require('http');
-const https = require('https');
-const app = express();
-const fs = require('fs');
-const cors = require('cors');
+import express from 'express';
+import http from 'http';
+import fs from 'fs';
+import cors from 'cors';
 
+const app = express();
 const promiseFs = fs.promises;
 
-const port = 1738;
-const db = `${__dirname}/shrug.json`;
+const db = `${process.cwd()}/shrug.json`;
 
-app.use(cors({ origin: 'https://shrug.sh' }));
+export const addCopy = async (_req, res) => {
+  console.log('GET /add-copy'); 
+  try {
+     // Read from file.
+     const rawCountFile = await promiseFs.readFile(db, 'utf-8');
+     
+     // Increment view count by one.
+     const jsonCountFile = JSON.parse(rawCountFile);
+     const oldCopyCount = jsonCountFile.copies;
+     const newCopyCount = oldCopyCount + 1;
+     const newCountFile = { 
+        ...jsonCountFile,
+        copies: newCopyCount 
+     };
 
-app.get('/add-view', async (req, res) => {
+     // Write to the file.
+     await promiseFs.writeFile(db, JSON.stringify(newCountFile) + '\n');
+
+     // Respond with OK.
+     res.sendStatus(200);
+  } catch (e) {
+     console.error(e); 
+     res.status(500).send('Encountered error while updating copy count');
+  }
+};
+
+export const addView = async (_req, res) => {
   console.log('GET /add-view'); 
   try {
     // Read from file.
@@ -36,35 +58,9 @@ app.get('/add-view', async (req, res) => {
     console.error(e); 
     res.status(500).send('Encountered error while updating view count');
   }
-});
+};
 
-app.get('/add-copy', async (req, res) => {
-  console.log('GET /add-copy'); 
-  try {
-    // Read from file.
-    const rawCountFile = await promiseFs.readFile(db, 'utf-8');
-    
-    // Increment view count by one.
-    const jsonCountFile = JSON.parse(rawCountFile);
-    const oldCopyCount = jsonCountFile.copies;
-    const newCopyCount = oldCopyCount + 1;
-    const newCountFile = { 
-      ...jsonCountFile,
-      copies: newCopyCount 
-    };
-
-    // Write to the file.
-    await promiseFs.writeFile(db, JSON.stringify(newCountFile) + '\n');
-
-    // Respond with OK.
-    res.sendStatus(200);
-  } catch (e) {
-    console.error(e); 
-    res.status(500).send('Encountered error while updating copy count');
-  }
-});
-
-app.get('/', async (req, res) => {
+export const getCurrentCounts = async (_req, res) => {
   console.log('GET /');
 
   try {
@@ -80,20 +76,25 @@ app.get('/', async (req, res) => {
     console.error(e);
     res.status(500).send('Encountered error while finding counts');
   }
-});
-
-const sslOptions = {
-  key: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/fullchain.pem'),
 };
-const httpsPort = 1738;
 
-https
-  .createServer(sslOptions, app)
+app.use(cors({ origin: 'https://shrug.sh' }));
+app.get('/', getCurrentCounts);
+app.get('/add-copy', addCopy);
+app.get('/add-view', addView);
+
+// const sslOptions = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/privkey.pem'),
+//   cert: fs.readFileSync('/etc/letsencrypt/live/views.shrug.sh/fullchain.pem'),
+// };
+// const httpsPort = 1738;
+const httpPort = 1737;
+
+http
+  .createServer(app)
   .listen(
-    httpsPort, 
+    httpPort, 
     () => { 
-      console.log(`Started HTTPS server on port ${httpsPort}`);
+      console.log(`Started HTTPS server on port ${httpPort}`);
     }
   );
-
