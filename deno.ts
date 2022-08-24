@@ -3,11 +3,6 @@ import { addCopy, addView, getCurrentCounts } from './fileUtils.ts';
 
 const router = new Router();
 
-console.log('/')
-for await (const dirEntry of Deno.readDir("/")) {
-  console.log(dirEntry.name);
-}
-
 console.log(Deno.cwd())
 for await (const dirEntry of Deno.readDir(Deno.cwd())) {
   console.log(dirEntry.name);
