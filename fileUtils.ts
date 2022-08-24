@@ -61,7 +61,7 @@ export const getCurrentCounts = async (ctx) => {
     const rawCountFile = await Deno.readTextFile(db);
 
     ctx.response.status = Status.OK;
-    ctx.response.body = rawViewCountFile;
+    ctx.response.body = rawCountFile;
   } catch (e) {
     console.error(e);
     ctx.response.status = Status.InternalServerError;
