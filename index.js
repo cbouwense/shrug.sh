@@ -12,11 +12,11 @@ app.get('/add-view', addView);
 
 const httpsPort = 1738;
 
-http
-  .createServer(app)
+https
+  .createServer(sslOptions, app)
   .listen(
-    httpPort, 
+    httpsPort, 
     () => { 
-      console.log(`Started HTTPS server on port ${httpPort}`);
+      console.log(`Started HTTPS server on port ${httpsPort}`);
     }
   );
