@@ -2,11 +2,11 @@ import { Status } from "https://deno.land/x/oak/mod.ts";
 const db = `${Deno.cwd()}/shrug.json`;
 console.log(Object.keys(Deno))
 
-export const addCopy = (ctx) => {
+export const addCopy = async (ctx) => {
   console.log('GET /add-copy'); 
   try {
     // Read from file.
-    const rawCountFile = Deno.readTextFileSync(db);
+    const rawCountFile = await Deno.readFile(db);
     const jsonCountFile = JSON.parse(rawCountFile);
     
     // Increment view count by one.
@@ -28,11 +28,11 @@ export const addCopy = (ctx) => {
   }
 };
 
-export const addView = (ctx) => {
+export const addView = async (ctx) => {
   console.log('GET /add-view'); 
   try {
     // Read from file.
-    const rawCountFile = Deno.readTextFileSync(db);
+    const rawCountFile = await Deno.readTextFile(db);
     const jsonCountFile = JSON.parse(rawCountFile);
     
     // Increment view count by one.
@@ -54,12 +54,12 @@ export const addView = (ctx) => {
   }
 };
 
-export const getCurrentCounts = (ctx) => {
+export const getCurrentCounts = async (ctx) => {
   console.log('GET /');
 
   try {
     // Read from file.
-    const rawCountFile = Deno.readTextFileSync(db);
+    const rawCountFile = await Deno.readTextFile(db);
 
     ctx.response.status = Status.OK;
     ctx.response.body = rawViewCountFile;
