@@ -5,7 +5,7 @@ export const addCopy = async (ctx) => {
   console.log('GET /add-copy'); 
   try {
     // Read from file.
-    const rawCountFile = await Deno.readFile(db);
+    const rawCountFile = await Deno.readTextFile(db);
     const jsonCountFile = JSON.parse(rawCountFile);
     
     // Increment view count by one.
