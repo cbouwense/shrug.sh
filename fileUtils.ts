@@ -1,5 +1,6 @@
 import { Status } from "https://deno.land/x/oak/mod.ts";
 const db = `${Deno.cwd()}/shrug.json`;
+console.log(Object.keys(Deno))
 
 export const addCopy = (ctx) => {
   console.log('GET /add-copy'); 
