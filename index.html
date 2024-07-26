@@ -37,6 +37,21 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
       box-shadow: 5px 5px 10px 5px slategray;
     }
 
+    .markdown {
+      color:  white;
+      height: 12%;
+      max-height: 125px;
+      width:  25%;
+      max-width: 235px;
+      font-size: 50px;
+      background: rgb(9,9,121);
+      border-radius: 10px;
+      border: 0;
+      background: rgb(80,9,121);
+background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%);
+      box-shadow: 5px 5px 10px 5px slategray;
+    }
+    
     @media only screen and (max-width: 800px) {
       body {
         font-size: 12vh;
@@ -60,12 +75,13 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
 </head>
 <body>
   <p id="shrug">¯\_(ツ)_/¯</p>
-  <button onclick="handleCopyClick()">Copy</button>
+  <button onclick="handleCopyClick({ markdown: false })">Copy</button>
+  <button class="markdown" onclick="handleCopyClick({ markdown: true })">Copy for markdown</button>
   <p id="copied-alert">Copied!</p>
  
   <script type="text/javascript">
-    function copyToClipboard() {
-      navigator.clipboard.writeText(document.getElementById("shrug").textContent);
+    function copyToClipboard(markdown) {        
+      navigator.clipboard.writeText(markdown ? ¯\\\_(ツ)_/¯ : ¯\_(ツ)_/¯);
     }
 
     function showCopiedAlert() {
@@ -90,8 +106,8 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
       fetch('https://views.shrug.sh:1738/add-copy');
     }
 
-    function handleCopyClick() {
-      copyToClipboard();
+    function handleCopyClick({ markdown }) {
+      copyToClipboard(markdown);
       showCopiedAlert();
       increaseCopyCount(); 
       setTimeout(hideCopiedAlert, 3000);
