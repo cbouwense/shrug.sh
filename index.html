@@ -1,16 +1,20 @@
 <!doctype html>
 <html>
+
 <head>
   <title>¯\_(ツ)_/¯</title>
   <meta name="description" content="Ascii Shrug">
   <meta name="keywords" content="ascii shrug copy paste">
+  <meta name="author" content="Christian Bouwense">
+  <!-- UTF-8 -->
+  <meta charset="utf-8">
   <link type="image/png" sizes="16x16" rel="icon" href="16.png">
   <link type="image/png" sizes="32x32" rel="icon" href="32.png">
   <link type="image/png" sizes="96x96" rel="icon" href="96.png">
   <style type="text/css">
     * {
       font-family: "Verdana", Times, Serif;
-    } 
+    }
 
     body {
       height: 100vh;
@@ -23,65 +27,64 @@
     }
 
     button {
-      color:  white;
+      color: white;
       height: 25%;
       max-height: 250px;
-      width:  50%;
+      width: 50%;
       max-width: 470px;
       font-size: 100px;
-      background: rgb(9,9,121);
+      background: rgb(9, 9, 121);
       border-radius: 10px;
       border: 0;
-      background: rgb(80,9,121);
-background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%);
+      background: rgb(80, 9, 121);
+      background: linear-gradient(148deg, rgba(80, 9, 121, 1) 34%, rgba(51, 0, 255, 1) 100%);
       box-shadow: 5px 5px 10px 5px slategray;
     }
 
     .markdown {
-      color:  white;
+      color: white;
       height: 12%;
       max-height: 125px;
-      width:  25%;
+      width: 25%;
       max-width: 235px;
-      font-size: 50px;
-      background: rgb(9,9,121);
+      font-size: 25px;
+      background: rgb(9, 9, 121);
       border-radius: 10px;
       border: 0;
-      background: rgb(80,9,121);
-background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%);
+      background: rgb(80, 9, 121);
+      background: linear-gradient(148deg, rgb(227, 91, 17) 34%, rgb(229, 134, 0) 100%);
       box-shadow: 5px 5px 10px 5px slategray;
     }
-    
+
     @media only screen and (max-width: 800px) {
       body {
         font-size: 12vh;
       }
 
-      button {
-         
-      }
+      button {}
     }
 
-    p { 
+    p {
       margin: 0;
     }
 
     #copied-alert {
-      font-size: 100px;
+      font-size: 50px;
       visibility: hidden;
     }
   </style>
-  
+
 </head>
+
 <body>
   <p id="shrug">¯\_(ツ)_/¯</p>
   <button onclick="handleCopyClick({ markdown: false })">Copy</button>
   <button class="markdown" onclick="handleCopyClick({ markdown: true })">Copy for markdown</button>
   <p id="copied-alert">Copied!</p>
- 
+
   <script type="text/javascript">
-    function copyToClipboard(markdown) {        
-      navigator.clipboard.writeText(markdown ? ¯\\\_(ツ)_/¯ : ¯\_(ツ)_/¯);
+    function copyToClipboard(markdown) {
+      navigator.clipboard.writeText(markdown ? String.raw`¯\\\_(ツ)_/¯` : String.raw`¯\_(ツ)_/¯`);
     }
 
     function showCopiedAlert() {
@@ -97,7 +100,7 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
         .style
         .visibility = "hidden";
     }
-    
+
     function increaseViewCount() {
       fetch('https://views.shrug.sh:1738/add-view');
     }
@@ -107,14 +110,15 @@ background: linear-gradient(148deg, rgba(80,9,121,1) 34%, rgba(51,0,255,1) 100%)
     }
 
     function handleCopyClick({ markdown }) {
+      console.log(markdown);
       copyToClipboard(markdown);
       showCopiedAlert();
-      increaseCopyCount(); 
+      increaseCopyCount();
       setTimeout(hideCopiedAlert, 3000);
     }
 
     increaseViewCount();
   </script>
 </body>
-</html>
 
+</html>
